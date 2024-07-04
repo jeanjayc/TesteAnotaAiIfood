@@ -1,0 +1,6 @@
+@TesteAnotaAiIfood.API_HostAddress = http://localhost:5044
+
+GET {{TesteAnotaAiIfood.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
