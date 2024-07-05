@@ -24,14 +24,15 @@ namespace TesteAnotaAiIfood.Infra.Repository
             await _products.InsertOneAsync(product);
             return product;
         }
-        public Task<Product> UpdateProduct(string id, Product product)
+        public async Task<Product> UpdateProduct(string id, Product product)
         {
-            throw new NotImplementedException();
+            await _products.ReplaceOneAsync(x => x.Id == id, product);
+            return product;
         }
 
-        public Task DeleteProduct(string id)
+        public async Task DeleteProduct(string id)
         {
-            throw new NotImplementedException();
+            await _products.DeleteOneAsync(x => x.Id == id);
         }
     }
 }
