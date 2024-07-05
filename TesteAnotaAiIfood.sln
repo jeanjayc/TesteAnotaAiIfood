@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteAnotaAiIfood.API", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteAnotaAiIfood.Infra", "src\TesteAnotaAiIfood.Infra\TesteAnotaAiIfood.Infra.csproj", "{83448E0E-D4B1-47A6-8B97-DE145FD5E27E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesteAnotaAiIfood.Domain", "src\TesteAnotaAiIfood.Domain\TesteAnotaAiIfood.Domain.csproj", "{04BEB9A5-48FD-4B8B-9405-3270F38906EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{83448E0E-D4B1-47A6-8B97-DE145FD5E27E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83448E0E-D4B1-47A6-8B97-DE145FD5E27E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83448E0E-D4B1-47A6-8B97-DE145FD5E27E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04BEB9A5-48FD-4B8B-9405-3270F38906EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04BEB9A5-48FD-4B8B-9405-3270F38906EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04BEB9A5-48FD-4B8B-9405-3270F38906EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04BEB9A5-48FD-4B8B-9405-3270F38906EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
