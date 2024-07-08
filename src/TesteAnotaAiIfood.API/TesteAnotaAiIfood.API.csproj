@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\TesteAnotaAiIfood.Application\TesteAnotaAiIfood.Application.csproj" />
     <ProjectReference Include="..\TesteAnotaAiIfood.Domain\TesteAnotaAiIfood.Domain.csproj" />
     <ProjectReference Include="..\TesteAnotaAiIfood.Infra\TesteAnotaAiIfood.Infra.csproj" />
   </ItemGroup>

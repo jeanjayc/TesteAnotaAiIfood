@@ -8,30 +8,45 @@ namespace TesteAnotaAiIfood.Infra.Repository
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly IMongoClient _client;
-        private readonly IMongoDatabase _database;
-        private IMongoCollection<Product> _products;
+        private IMongoCollection<Product> _productsCollection;
 
-        public ProductRepository(IMongoClient client, IOptions<MongoDBSettings> settings, IMongoCollection<Product> products)
+        public ProductRepository(IOptions<MongoDBSettings> settings)
         {
-            _client = client;
-            _database = _client.GetDatabase(settings.Value.DatabaseName);
-            _products = _database.GetCollection<Product>("produto");
+            var mongoClient = new MongoClient(
+                settings.Value.ConnectionString);
+
+            var mongoDatabase = mongoClient.GetDatabase(
+                settings.Value.DatabaseName );
+
+            _productsCollection = mongoDatabase.GetCollection<Product>(settings.Value.DatabaseName);
+        }
+
+        public async Task<Product> GetById(string id)
+        {
+            return await _productsCollection.Find(id).FirstOrDefaultAsync();
         }
 
         public async Task<Product> InsertProduct(Product product)
         {
-            await _products.InsertOneAsync(product);
+            await _productsCollection.InsertOneAsync(product);
             return product;
         }
-        public Task<Product> UpdateProduct(string id, Product product)
+        public async Task UpdateProduct(string id, Product updateProduct)
         {
-            throw new NotImplementedException();
+            var product = await GetById(id);
+
+            if (product is null) return;
+
+            await _productsCollection.ReplaceOneAsync(p => p.Id == id, updateProduct);
         }
 
-        public Task DeleteProduct(string id)
+        public async Task DeleteProduct(string id)
         {
-            throw new NotImplementedException();
+            var product = await GetById(id);
+
+            if (product is null) return;
+
+            await _productsCollection.DeleteOneAsync(p => p.Id == id);
         }
     }
 }
