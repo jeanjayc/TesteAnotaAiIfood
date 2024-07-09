@@ -14,6 +14,20 @@ namespace TesteAnotaAiIfood.API.Controllers
         {
             _categoryService = categoryService;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var allCategorys = await _categoryService.GetAllCategorys();
+                return Ok(allCategorys);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetCategoryById(string id)
@@ -40,7 +54,37 @@ namespace TesteAnotaAiIfood.API.Controllers
 
             var response = await _categoryService.InsertCategory(categoryDTO);
 
-            return Ok();
+            return CreatedAtAction(nameof(Create), categoryDTO);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(string id, CategoryDTO categoryDTO)
+        {
+            try
+            {
+                await _categoryService.UpdateCategory(id, categoryDTO);
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                await _categoryService.DeleteCategory(id);
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

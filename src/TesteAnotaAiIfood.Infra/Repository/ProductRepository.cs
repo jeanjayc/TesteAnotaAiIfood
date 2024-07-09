@@ -18,12 +18,16 @@ namespace TesteAnotaAiIfood.Infra.Repository
             var mongoDatabase = mongoClient.GetDatabase(
                 settings.Value.DatabaseName );
 
-            _productsCollection = mongoDatabase.GetCollection<Product>(settings.Value.DatabaseName);
+            _productsCollection = mongoDatabase.GetCollection<Product>("product");
         }
 
+        public async Task<IEnumerable<Product>> GetAllProducts()
+        {
+            return await _productsCollection.Find(_ => true).ToListAsync();
+        }
         public async Task<Product> GetById(string id)
         {
-            return await _productsCollection.Find(id).FirstOrDefaultAsync();
+            return await _productsCollection.Find(p => p.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<Product> InsertProduct(Product product)
@@ -33,19 +37,11 @@ namespace TesteAnotaAiIfood.Infra.Repository
         }
         public async Task UpdateProduct(string id, Product updateProduct)
         {
-            var product = await GetById(id);
-
-            if (product is null) return;
-
             await _productsCollection.ReplaceOneAsync(p => p.Id == id, updateProduct);
         }
 
         public async Task DeleteProduct(string id)
         {
-            var product = await GetById(id);
-
-            if (product is null) return;
-
             await _productsCollection.DeleteOneAsync(p => p.Id == id);
         }
     }

@@ -13,14 +13,28 @@ namespace TesteAnotaAiIfood.Application.Services
         {
             _categoryRepository = categoryRepository;
         }
+
+        public async Task<IEnumerable<CategoryDTO>> GetAllCategorys()
+        {
+            var categorys = await _categoryRepository.GetAll();
+            return categorys.Select
+                (
+                    c => new CategoryDTO
+                        (
+                            c.Owner,
+                            c.Description,
+                            c.Title
+                        )
+                );
+        }
         public async Task<CategoryDTO> GetById(string id)
         {
             var category = await _categoryRepository.GetById(id);
 
             return new CategoryDTO
                 (
-                    category.Id, 
-                    category.Title, 
+                    category.Id,
+                    category.Title,
                     category.Description
                 );
         }
@@ -30,15 +44,25 @@ namespace TesteAnotaAiIfood.Application.Services
             var registeredCategory = await _categoryRepository.InsertCategory(newCategory);
             return registeredCategory;
         }
-
-        public Task DeleteCategory(string id)
+        public async Task UpdateCategory(string id, CategoryDTO categoryDTO)
         {
-            throw new NotImplementedException();
+            var existCategory = await _categoryRepository.GetById(id);
+
+            if (existCategory is null) return;
+
+            var updateCategory = new Category(categoryDTO);
+            updateCategory.Id = existCategory.Id;
+
+            await _categoryRepository.UpdateCategory(id, updateCategory);
         }
 
-        public Task<Category> UpdateCategory(string id, CategoryDTO categoryDTO)
+        public async Task DeleteCategory(string id)
         {
-            throw new NotImplementedException();
+            var existCategory = await _categoryRepository.GetById(id);
+
+            if (existCategory is null) return;
+
+            await _categoryRepository.DeleteCategory(id);
         }
     }
 }

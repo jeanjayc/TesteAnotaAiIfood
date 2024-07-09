@@ -4,7 +4,7 @@
         (
             string Title,
             string Owner,
-            string CategoryId,
+            string? CategoryId,
             decimal Price,
             string Description
         );

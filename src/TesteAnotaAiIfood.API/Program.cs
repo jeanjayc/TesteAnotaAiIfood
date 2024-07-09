@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
 using TesteAnotaAiIfood.Application.Interfaces;
 using TesteAnotaAiIfood.Application.Services;
 using TesteAnotaAiIfood.Infra.Data;

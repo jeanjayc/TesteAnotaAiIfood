@@ -9,6 +9,8 @@ namespace TesteAnotaAiIfood.Domain.Entities
             Title = categoryDTO.Title;
             Owner = categoryDTO.Owner;
             Description = categoryDTO.Description;
+            ProductId = string.Empty;
         }
+        public string ProductId { get; set; }
     }
 }

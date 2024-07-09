@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TesteAnotaAiIfood.Application.Interfaces;
+using TesteAnotaAiIfood.Application.Services;
 using TesteAnotaAiIfood.Domain.DTOs;
 
 namespace TesteAnotaAiIfood.API.Controllers
@@ -15,6 +16,21 @@ namespace TesteAnotaAiIfood.API.Controllers
             _productService = productService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var allProducts = await _productService.GetAllProducts();
+                return Ok(allProducts);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(ProductDTO productDTO)
         {
@@ -22,7 +38,7 @@ namespace TesteAnotaAiIfood.API.Controllers
             {
                 var response = await _productService.InsertProduct(productDTO);
 
-                return Ok(productDTO);
+                return CreatedAtAction(nameof(Create), productDTO);
             }
             catch (Exception ex)
             {
@@ -31,11 +47,34 @@ namespace TesteAnotaAiIfood.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Update(string id, ProductDTO productDTO)
         {
+            try
+            {
+                await _productService.UpdateProduct(id, productDTO);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
 
-            return Ok();
+                throw;
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                await _productService.DeleteProduct(id);
+                return NoContent();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

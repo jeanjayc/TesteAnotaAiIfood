@@ -18,7 +18,12 @@ namespace TesteAnotaAiIfood.Infra.Repository
             var mongoDatabase = mongoClient.GetDatabase(
                 settings.Value.DatabaseName);
 
-            _categorysCollection = mongoDatabase.GetCollection<Category>(settings.Value.DatabaseName);
+            _categorysCollection = mongoDatabase.GetCollection<Category>("category");
+        }
+
+        public async Task<IEnumerable<Category>> GetAll()
+        {
+            return await _categorysCollection.Find(_ => true).ToListAsync();
         }
         public async Task<Category> GetById(string id)
         {
@@ -32,10 +37,8 @@ namespace TesteAnotaAiIfood.Infra.Repository
         }
         public async Task UpdateCategory(string id, Category category)
         {
-            var existCategory = await GetById(id);
-            if (existCategory is null) return;
 
-            await _categorysCollection.ReplaceOneAsync(c => c.Id == category.Id, category);
+            await _categorysCollection.ReplaceOneAsync(c => c.Id == id, category);
 
         }
         public async Task DeleteCategory(string id)
