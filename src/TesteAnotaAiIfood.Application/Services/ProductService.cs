@@ -9,11 +9,13 @@ namespace TesteAnotaAiIfood.Application.Services
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IAwsService _awsService;
 
-        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository)
+        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository, IAwsService awsService)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
+            _awsService = awsService;
         }
 
         public async Task<IEnumerable<ProductDTO>> GetAllProducts()
@@ -50,6 +52,7 @@ namespace TesteAnotaAiIfood.Application.Services
             newProduct.Categoria = category;
 
             var registeredProduct = await _productRepository.InsertProduct(newProduct);
+            await _awsService.PublishToTopic(registeredProduct.Owner);
 
             category.ProductId = registeredProduct.Id;
             await _categoryRepository.UpdateCategory(category.Id, category);
@@ -66,6 +69,7 @@ namespace TesteAnotaAiIfood.Application.Services
             newProduct.Id = productExist.Id;
 
             await _productRepository.UpdateProduct(id, newProduct);
+            await _awsService.PublishToTopic(product.Owner);
         }
 
         public async Task DeleteProduct(string id)

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TesteAnotaAiIfood.Application.Interfaces;
-using TesteAnotaAiIfood.Application.Services;
 using TesteAnotaAiIfood.Domain.DTOs;
 
 namespace TesteAnotaAiIfood.API.Controllers

@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.301.65" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TesteAnotaAiIfood.Domain\TesteAnotaAiIfood.Domain.csproj" />
     <ProjectReference Include="..\TesteAnotaAiIfood.Infra\TesteAnotaAiIfood.Infra.csproj" />
   </ItemGroup>

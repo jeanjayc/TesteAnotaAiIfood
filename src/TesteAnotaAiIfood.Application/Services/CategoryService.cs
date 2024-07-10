@@ -8,10 +8,11 @@ namespace TesteAnotaAiIfood.Application.Services
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-
-        public CategoryService(ICategoryRepository categoryRepository)
+        private readonly IAwsService _awsService;
+        public CategoryService(ICategoryRepository categoryRepository, IAwsService awsService)
         {
             _categoryRepository = categoryRepository;
+            _awsService = awsService;
         }
 
         public async Task<IEnumerable<CategoryDTO>> GetAllCategorys()
@@ -42,6 +43,7 @@ namespace TesteAnotaAiIfood.Application.Services
         {
             var newCategory = new Category(categoryDTO);
             var registeredCategory = await _categoryRepository.InsertCategory(newCategory);
+            await _awsService.PublishToTopic(registeredCategory.Owner);
             return registeredCategory;
         }
         public async Task UpdateCategory(string id, CategoryDTO categoryDTO)
@@ -54,6 +56,7 @@ namespace TesteAnotaAiIfood.Application.Services
             updateCategory.Id = existCategory.Id;
 
             await _categoryRepository.UpdateCategory(id, updateCategory);
+            await _awsService.PublishToTopic(updateCategory.Owner);
         }
 
         public async Task DeleteCategory(string id)
