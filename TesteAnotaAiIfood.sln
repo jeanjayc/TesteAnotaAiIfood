@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteAnotaAiIfood.Infra", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteAnotaAiIfood.Domain", "src\TesteAnotaAiIfood.Domain\TesteAnotaAiIfood.Domain.csproj", "{04BEB9A5-48FD-4B8B-9405-3270F38906EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesteAnotaAiIfood.Application", "TesteAnotaAiIfood.Application\TesteAnotaAiIfood.Application.csproj", "{BB382BA8-47A6-49BA-893E-8AC97E730EB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteAnotaAiIfood.Application", "src\TesteAnotaAiIfood.Application\TesteAnotaAiIfood.Application.csproj", "{CC55389D-3D32-4B72-A824-9708AA17D17E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{04BEB9A5-48FD-4B8B-9405-3270F38906EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04BEB9A5-48FD-4B8B-9405-3270F38906EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04BEB9A5-48FD-4B8B-9405-3270F38906EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB382BA8-47A6-49BA-893E-8AC97E730EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB382BA8-47A6-49BA-893E-8AC97E730EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB382BA8-47A6-49BA-893E-8AC97E730EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB382BA8-47A6-49BA-893E-8AC97E730EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC55389D-3D32-4B72-A824-9708AA17D17E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC55389D-3D32-4B72-A824-9708AA17D17E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC55389D-3D32-4B72-A824-9708AA17D17E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC55389D-3D32-4B72-A824-9708AA17D17E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
