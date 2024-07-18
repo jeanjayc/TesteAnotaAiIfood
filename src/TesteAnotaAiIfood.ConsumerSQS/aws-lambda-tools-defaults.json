@@ -1,0 +1,27 @@
+
+{
+    "Information" : [
+        "This file provides default values for the deployment wizard inside Visual Studio and the AWS Lambda commands added to the .NET Core CLI.",
+        "To learn more about the Lambda commands with the .NET Core CLI execute the following command at the command line in the project root directory.",
+        "dotnet lambda help",
+        "All the command line options for the Lambda command can be specified in this file."
+    ],
+    "profile"     : "default",
+    "region"      : "us-east-1",
+    "configuration" : "Release",
+    "function-runtime" : "dotnet8",
+    "function-memory-size" : 128,
+    "function-timeout"     : 245,
+    "function-handler"     : "TesteAnotaAiIfood.Servesless::TesteAnotaAiIfood.Servesless.Function::FunctionHandler",
+    "framework"            : "net8.0",
+    "function-name"        : "catalog-consumer",
+    "package-type"         : "Zip",
+    "function-role"        : "arn:aws:iam::975050296398:role/lambda_exec_catalog-consumer",
+    "function-architecture" : "x86_64",
+    "function-subnets"      : "",
+    "function-security-groups" : "",
+    "tracing-mode"             : "PassThrough",
+    "environment-variables"    : "\"COLLECTION_CATEGORY\"=\"category\";\"DATABASE_NAME\"=\"catalogo\";\"COLLECTION_PRODUCT\"=\"product\";\"MONGODB_URI\"=\"mongodb+srv://jeanmaster777:cAJbPKNnp5JjqpE1@myfirstcluster.rolf7fk.mongodb.net/catalogo?retryWrites=true&w=majority\"",
+    "image-tag"                : "",
+    "function-description"     : ""
+}
