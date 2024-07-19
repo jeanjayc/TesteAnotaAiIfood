@@ -21,7 +21,7 @@
     "function-subnets"      : "",
     "function-security-groups" : "",
     "tracing-mode"             : "PassThrough",
-    "environment-variables"    : "\"COLLECTION_CATEGORY\"=\"category\";\"DATABASE_NAME\"=\"catalogo\";\"COLLECTION_PRODUCT\"=\"product\";\"MONGODB_URI\"=\"mongodb+srv://jeanmaster777:cAJbPKNnp5JjqpE1@myfirstcluster.rolf7fk.mongodb.net/catalogo?retryWrites=true&w=majority\"",
+    "environment-variables"    : "\"COLLECTION_CATEGORY\"=\"category\";\"DATABASE_NAME\"=\"catalogo\";\"COLLECTION_PRODUCT\"=\"product\";\"MONGODB_URI\"=\"mongodb+srv://jeanmaster777:cAJbPKNnp5JjqpE1@myfirstcluster.rolf7fk.mongodb.net/catalogo?retryWrites=true&w=majority\";\"BUCKET_NAME\"=\"catalog-json-jean-version\"",
     "image-tag"                : "",
     "function-description"     : ""
 }

@@ -1,5 +1,7 @@
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
+using Amazon.S3;
+using Amazon.S3.Model;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.Json;
@@ -19,10 +21,14 @@ public class Function
     private static readonly string databaseName = Environment.GetEnvironmentVariable("DATABASE_NAME");
     private static readonly string collectionCategory = Environment.GetEnvironmentVariable("COLLECTION_CATEGORY");
     private static readonly string collectionProduct = Environment.GetEnvironmentVariable("COLLECTION_PRODUCT");
+    private static readonly string bucketName = Environment.GetEnvironmentVariable("BUCKET_NAME");
+
     private static readonly MongoClient mongoClient;
     private static readonly IMongoDatabase database;
     private static readonly IMongoCollection<BsonDocument> categoryCollection;
     private static readonly IMongoCollection<BsonDocument> productCollection;
+
+    private static readonly AmazonS3Client s3Client = new AmazonS3Client(Amazon.RegionEndpoint.USEast1);
     static Function()
     {
         var settings = MongoClientSettings.FromUrl(new MongoUrl(mongoConnectionString));
@@ -86,15 +92,31 @@ public class Function
                 Catalog = listCatalog,
             };
 
-            if(catalog != null)
+            if (catalog != null)
             {
-                var result = JsonSerializer.Serialize(catalogResult);
+                var document = JsonSerializer.Serialize(catalogResult);
 
-                context.Logger.LogInformation(result);
-            }
-            else
-            {
-                context.Logger.LogInformation("Documento não encontrado para o ownerId: " + messageBody);
+                context.Logger.LogInformation(document);
+
+                if (document != null)
+                {
+                    var ownerId = categoryResponse.GetValue("owner").AsString;
+                    var jsonDocument = document.ToJson();
+                    var key = $"{ownerId}.json";
+
+                    var putRequest = new PutObjectRequest
+                    {
+                        BucketName = bucketName,
+                        Key = key,
+                        ContentBody = jsonDocument
+                    };
+
+                    await s3Client.PutObjectAsync(putRequest);
+                }
+                else
+                {
+                    context.Logger.LogInformation("Documento não encontrado para o ownerId: " + messageBody);
+                }
             }
         }
     }
