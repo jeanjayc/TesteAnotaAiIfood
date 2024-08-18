@@ -7,7 +7,7 @@ namespace TesteAnotaAiIfood.Infra.Interfaces
         Task<Category> GetById(string id);
         Task<IEnumerable<Category>> GetAll();
         Task<Category> InsertCategory(Category category);
-        Task UpdateCategory(string id, Category category);
-        Task DeleteCategory(string id);
+        Task<Category> UpdateCategory(string id,Category category);
+        Task<bool> DeleteCategory(string id);
     }
 }

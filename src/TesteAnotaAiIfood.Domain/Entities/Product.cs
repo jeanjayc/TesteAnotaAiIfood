@@ -12,11 +12,7 @@ namespace TesteAnotaAiIfood.Domain.Entities
             Price = productDTO.Price;
             Description = productDTO.Description;
         }
-
-        [BsonElement("price")]
         public decimal Price { get; set; }
-
-        [BsonElement("categoria")]
         public Category? Categoria { get; set; }
     }
 }
