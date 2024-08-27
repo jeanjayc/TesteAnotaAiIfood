@@ -4,6 +4,7 @@ namespace TesteAnotaAiIfood.Domain.Entities
 {
     public class Category : BaseEntity
     {
+        public Category() { }
         public Category(CategoryDTO categoryDTO)
         {
             Title = categoryDTO.Title;

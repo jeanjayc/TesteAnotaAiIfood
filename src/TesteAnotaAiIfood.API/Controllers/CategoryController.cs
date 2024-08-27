@@ -22,7 +22,7 @@ namespace TesteAnotaAiIfood.API.Controllers
                 var allCategorys = await _categoryService.GetAllCategorys();
                 return Ok(allCategorys);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;

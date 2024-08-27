@@ -4,6 +4,7 @@
         (
             string Owner,
             string Description,
-            string Title
+            string Title,
+            string ProductId
         );
 }

@@ -5,10 +5,10 @@ namespace TesteAnotaAiIfood.Domain.Entities
     public abstract class BaseEntity
     {
         [JsonPropertyName("pk")]
-        public string Pk => Id;
+        public string PK { get; set; }
 
         [JsonPropertyName("sk")]
-        public string SK => Id;
+        public string SK { get; set; }
         public string Id { get; set; }
         public string Owner { get; set; }
         public string Title { get; set; }

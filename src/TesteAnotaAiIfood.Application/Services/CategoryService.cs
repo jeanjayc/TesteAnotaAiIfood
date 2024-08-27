@@ -24,7 +24,8 @@ namespace TesteAnotaAiIfood.Application.Services
                         (
                             c.Owner,
                             c.Description,
-                            c.Title
+                            c.Title,
+                            c.ProductId
                         )
                 );
         }
@@ -36,7 +37,8 @@ namespace TesteAnotaAiIfood.Application.Services
                 (
                     category.Id,
                     category.Title,
-                    category.Description
+                    category.Description,
+                    category.ProductId
                 );
         }
         public async Task<Category> InsertCategory(CategoryDTO categoryDTO)

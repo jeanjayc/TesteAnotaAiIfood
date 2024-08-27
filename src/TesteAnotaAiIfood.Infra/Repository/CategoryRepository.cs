@@ -26,11 +26,12 @@ namespace TesteAnotaAiIfood.Infra.Repository
             };
 
             var response = await _amazonDynamoDB.ScanAsync(scanRequest);
-            return response.Items.Select(x =>
+            var responseDesserializer = response.Items.Select(x =>
             {
                 var json = Document.FromAttributeMap(x).ToJson();
                 return JsonSerializer.Deserialize<Category>(json);
             });
+            return responseDesserializer;
         }
         public async Task<Category> GetById(string id)
         {
