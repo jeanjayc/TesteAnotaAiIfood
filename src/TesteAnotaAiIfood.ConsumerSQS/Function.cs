@@ -39,22 +39,7 @@ public class Function
         categoryCollection = database.GetCollection<BsonDocument>(collectionCategory);
         productCollection = database.GetCollection<BsonDocument>(collectionProduct);
     }
-
-    public async Task<BsonDocument> GetCategoryByOwnerId(string ownerId)
-    {
-        var filter = Builders<BsonDocument>.Filter.Eq("owner", ownerId);
-
-        var document = await categoryCollection.Find(filter).FirstOrDefaultAsync();
-        return document;
-    }
-    public async Task<BsonDocument> GetProductByOwnerId(string ownerId)
-    {
-        var filter = Builders<BsonDocument>.Filter.Eq("owner", ownerId);
-
-        var document = await productCollection.Find(filter).FirstOrDefaultAsync();
-        return document;
-    }
-
+        
     public async Task FunctionHandler(SQSEvent evnt, ILambdaContext context)
     {
         foreach (var message in evnt.Records)
@@ -63,38 +48,11 @@ public class Function
             var categoryResponse = await GetCategoryByOwnerId(messageBody);
             var productResponse = await GetProductByOwnerId(messageBody);
 
-            var listProduct = new List<ProductDTO>();
-            var listCatalog = new List<Catalog>();
-
-            var product = new ProductDTO
-                (
-                    productResponse.GetValue("title").AsString,
-                    productResponse.GetValue("owner").AsString,
-                    productResponse.GetValue("price").AsString,
-                    productResponse.GetValue("description").AsString
-                );
-
-            listProduct.Add(product);
-
-            var catalog = new Catalog
-            {
-                Owner = categoryResponse.GetValue("owner").AsString,
-                CategoryTitle = categoryResponse.GetValue("title").AsString,
-                CategoryDescription = categoryResponse.GetValue("description").AsString,
-                Itens = listProduct
-            };
-
-            listCatalog.Add(catalog);
-
-            var catalogResult = new CatalogJson
-            {
-                Owner = productResponse.GetValue("owner").AsString,
-                Catalog = listCatalog,
-            };
+            var catalog = await BuildEntityCatalog(categoryResponse, productResponse);
 
             if (catalog != null)
             {
-                var document = JsonSerializer.Serialize(catalogResult);
+                var document = JsonSerializer.Serialize(catalog);
 
                 context.Logger.LogInformation(document);
 
@@ -119,5 +77,52 @@ public class Function
                 }
             }
         }
+    }
+
+    private async Task<BsonDocument> GetCategoryByOwnerId(string ownerId)
+    {
+        var filter = Builders<BsonDocument>.Filter.Eq("owner", ownerId);
+
+        var document = await categoryCollection.Find(filter).FirstOrDefaultAsync();
+        return document;
+    }
+    private async Task<BsonDocument> GetProductByOwnerId(string ownerId)
+    {
+        var filter = Builders<BsonDocument>.Filter.Eq("owner", ownerId);
+
+        var document = await productCollection.Find(filter).FirstOrDefaultAsync();
+        return document;
+    }
+
+    private async Task<CatalogJson> BuildEntityCatalog(BsonDocument categoryResponse, BsonDocument productResponse)
+    {
+        var listProduct = new List<ProductDTO>();
+        var listCatalog = new List<Catalog>();
+
+        var product = new ProductDTO
+            (
+                productResponse.GetValue("title").AsString,
+                productResponse.GetValue("owner").AsString,
+                productResponse.GetValue("price").AsString,
+                productResponse.GetValue("description").AsString
+            );
+
+        listProduct.Add(product);
+
+        var catalog = new Catalog
+        {
+            Owner = categoryResponse.GetValue("owner").AsString,
+            CategoryTitle = categoryResponse.GetValue("title").AsString,
+            CategoryDescription = categoryResponse.GetValue("description").AsString,
+            Itens = listProduct
+        };
+
+        listCatalog.Add(catalog);
+
+        return new CatalogJson
+        {
+            Owner = productResponse.GetValue("owner").AsString,
+            Catalog = listCatalog,
+        };
     }
 }

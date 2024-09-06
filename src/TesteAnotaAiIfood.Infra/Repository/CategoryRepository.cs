@@ -85,7 +85,7 @@ namespace TesteAnotaAiIfood.Infra.Repository
             var response = await _amazonDynamoDB.PutItemAsync(createItemRequest);
             return category;
         }
-        public async Task<Category> UpdateCategory(string id, Category category)
+        public async Task UpdateCategory(string id, Category category)
         {
             var categoryAsJson = JsonSerializer.Serialize(category);
             var customerAsAttributes = Document.FromJson(categoryAsJson).ToAttributeMap();
@@ -96,8 +96,7 @@ namespace TesteAnotaAiIfood.Infra.Repository
                 Item = customerAsAttributes
             };
 
-            var response = await _amazonDynamoDB.PutItemAsync(createItemRequest);
-            return category;
+            await _amazonDynamoDB.PutItemAsync(createItemRequest);
         }
         public async Task<bool> DeleteCategory(string id)
         {
