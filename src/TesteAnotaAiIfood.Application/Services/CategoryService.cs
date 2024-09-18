@@ -33,6 +33,8 @@ namespace TesteAnotaAiIfood.Application.Services
         {
             var category = await _categoryRepository.GetById(id);
 
+            if (category is null) return null;
+
             return new CategoryDTO
                 (
                     category.Id,

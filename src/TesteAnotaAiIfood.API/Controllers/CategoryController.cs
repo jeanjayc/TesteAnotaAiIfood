@@ -29,12 +29,15 @@ namespace TesteAnotaAiIfood.API.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCategoryById(string id)
+        [HttpGet("{pk}")]
+        public async Task<IActionResult> GetCategoryById(string pk)
         {
             try
             {
-                var result = await _categoryService.GetById(id);
+                var result = await _categoryService.GetById(pk);
+
+                if(result == null) return NotFound();
+
                 return Ok(result);
             }
             catch (Exception)
